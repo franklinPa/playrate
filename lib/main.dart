@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 import 'config/theme/app_theme.dart';
 import 'package:playrate/config/router/app_router.dart';
 
-//bceec611b45b42d69b33a0a1c26cd3ee
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MainApp());
 }
 
