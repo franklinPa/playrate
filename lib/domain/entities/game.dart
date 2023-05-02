@@ -2,7 +2,6 @@
 class Game {
     final int id;
     final String name;
-    final String nameOriginal;
     final String description;
     final int metacritic;
     final DateTime released;
@@ -45,7 +44,6 @@ class Game {
     Game({
         required this.id,
         required this.name,
-        required this.nameOriginal,
         required this.description,
         required this.metacritic,
         required this.released,
