@@ -1,47 +1,24 @@
-import 'package:playrate/infrastructure/models/gamerawg/game_gamerawg.dart';
-
-import '../../domain/entities/game.dart';
+import '../../domain/entities/game/game.dart';
+import '../models/rawg/game_rawg.dart';
 
 class GameMapper {
-  static Game gameRAWGToEntity(GameGameRAWG gamerawg) => Game(
-      id: gamerawg.id,
-      name: gamerawg.name,
-      description: gamerawg.description,
-      metacritic: gamerawg.metacritic,
-      released: gamerawg.released,
-      tba: gamerawg.tba,
-      updated: gamerawg.updated,
-      backgroundImage: gamerawg.backgroundImage,
-      backgroundImageAdditional: gamerawg.backgroundImageAdditional,
-      rating: gamerawg.rating,
-      ratingTop: gamerawg.ratingTop,
-      added: gamerawg.added,
-      addedByStatus: gamerawg.addedByStatus,
-      playtime: gamerawg.playtime,
-      screenshotsCount: gamerawg.screenshotsCount,
-      moviesCount: gamerawg.moviesCount,
-      creatorsCount: gamerawg.creatorsCount,
-      achievementsCount: gamerawg.achievementsCount,
-      parentAchievementsCount: gamerawg.parentAchievementsCount,
-      twitchCount: gamerawg.twitchCount,
-      youtubeCount: gamerawg.youtubeCount,
-      reviewsTextCount: gamerawg.reviewsTextCount,
-      ratingsCount: gamerawg.ratingsCount,
-      suggestionsCount: gamerawg.suggestionsCount,
-      alternativeNames: gamerawg.alternativeNames,
-      metacriticUrl: gamerawg.metacriticUrl,
-      parentsCount: gamerawg.parentsCount,
-      additionsCount: gamerawg.additionsCount,
-      gameSeriesCount: gamerawg.gameSeriesCount,
-      reviewsCount: gamerawg.reviewsCount,
-      parentPlatforms: gamerawg.parentPlatforms,
-      platforms: gamerawg.platforms,
-      stores: gamerawg.stores,
-      developers: gamerawg.developers,
-      genres: gamerawg.genres,
-      tags: gamerawg.tags,
-      publishers: gamerawg.publishers,
-      esrbRating: gamerawg.esrbRating,
-      clip: gamerawg.clip,
-      descriptionRaw: gamerawg.descriptionRaw);
+  static Game gameRawgToEntity(GameRawg gameRawg) => Game(
+      id: gameRawg.id,
+      name: gameRawg.name,
+      description: '',
+      released: DateTime.now(),
+      tba: true,
+      backgroundImage: (gameRawg.backgroundImage != '') 
+      ? gameRawg.backgroundImage
+      : 'no-image',
+      backgroundImageAdditional: '',
+      rating: gameRawg.rating,
+      ratingTop: gameRawg.ratingTop,
+      ratingsCount: gameRawg.ratingsCount,
+      reviewsCount: gameRawg.reviewsCount,
+      platforms: List.empty(),
+      developers: List.empty(),
+      genres: List.empty(),
+      publishers: List.empty(),
+      esrbRating: '');
 }

@@ -1,13 +1,12 @@
-
-
-
 import 'package:dio/dio.dart';
-import 'package:playrate/config/constants/environment.dart';
-import 'package:playrate/domain/datasources/games_datasource.dart';
-import 'package:playrate/domain/entities/game.dart';
+
+import '../../config/constants/environment.dart';
+import '../../domain/datasources/games_datasource.dart';
+import '../../infrastructure/mappers/game_mapper.dart';
+import '../../domain/entities/game/game.dart';
+import '../models/rawg/rawg_response.dart';
 
 class GamerawgDatasource extends GamesDataSource{
-  
   
   final dio = Dio(
     BaseOptions(
@@ -19,15 +18,23 @@ class GamerawgDatasource extends GamesDataSource{
   );
   
   @override
-  Future<List<Game>> getNowPlaying({int addGames = 10}) async {
-    
+  Future<List<Game>> getUpcoming({int pageSize = 10}) async {
+
+    //hacer un getnow datetime :)
+
     final response = await dio.get('',queryParameters: {
-      'dates': '2022-01-01,2023-05-01',
-      'ordering': '-added',
-      'page_size': '2'
+      'dates': '2023-01-01,2024-05-01',
+      'page_size': '5',
+      'ordering': '-relevance'
     });
 
-    final List<Game> games = [];
+    final gameRawgResponse = GameRawgResponse.fromJson(response.data);
+
+    final List<Game> games = gameRawgResponse.results
+    .where((gameRawg) => gameRawg.backgroundImage != 'no-image')
+    .map(
+      (gameRawg) => GameMapper.gameRawgToEntity(gameRawg)
+    ).toList();
 
     return games;
   }

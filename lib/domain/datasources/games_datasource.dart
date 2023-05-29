@@ -1,9 +1,10 @@
 
-import '../entities/game.dart';
+
+import '../entities/game/game.dart';
 
 abstract class GamesDataSource {
 
 
-  Future<List<Game>> getNowPlaying({int addGames = 10});
+  Future<List<Game>> getUpcoming({int pageSize = 10});
 
 }
