@@ -24,7 +24,7 @@ class GamerawgDatasource extends GamesDataSource{
 
     final response = await dio.get('',queryParameters: {
       'dates': '2023-01-01,2024-05-01',
-      'page_size': '5',
+      'page_size': '10',
       'ordering': '-relevance'
     });
 

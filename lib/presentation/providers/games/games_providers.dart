@@ -3,8 +3,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:playrate/presentation/screens/providers/games/games_repository_provider.dart';
-import '../../../../domain/entities/game/game.dart';
+import 'package:playrate/presentation/providers/games/games_repository_provider.dart';
+import '../../../domain/entities/game/game.dart';
 
 final upcomingProvider = StateNotifierProvider<GamesNotifier, List<Game>>((ref) {
   final fetchMoreGames = ref.watch( gameRepositoryProvider ).getUpcoming;
