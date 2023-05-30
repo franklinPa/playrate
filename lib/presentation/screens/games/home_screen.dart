@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:playrate/presentation/widgets/widgets.dart';
 
 import '../../providers/providers.dart';
+import '../../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -14,9 +14,9 @@ class HomeScreen extends StatelessWidget {
     return const Scaffold(
 
       body: Center(
-      child: _HomeView(),
+        child: _HomeView(),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar()
     );
   }
 }
