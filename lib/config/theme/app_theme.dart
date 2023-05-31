@@ -8,5 +8,5 @@ class AppTheme {
     useMaterial3: true,
     colorSchemeSeed: const Color(0xFF4FBDBA)
   );
-
+  
 }

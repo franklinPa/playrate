@@ -10,10 +10,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       elevation: 0,
       items: const [
-
         BottomNavigationBarItem(
           icon: Icon( Icons.home_max ),
-          label: 'Inicio'
+          label: 'Home'
         ),
         BottomNavigationBarItem(
           icon: Icon( Icons.label_outline ),
@@ -25,7 +24,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon( Icons.favorite_outline ),
-          label: 'Favoritos'
+          label: 'Favorites'
         ),
       ],
     );

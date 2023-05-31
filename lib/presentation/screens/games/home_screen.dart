@@ -37,17 +37,63 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    // final upcoming = ref.watch(upcomingProvider);
+    final upcomingGames = ref.watch(upcomingProvider);
     final slideShowGames = ref.watch(gamesSlideshowProvider);
 
-    return Column(
-      children: [
-        const CustomAppbar(),
-        
-        GamesSlideshow(
-          games: slideShowGames
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            titlePadding: EdgeInsets.all(0),
+            title: CustomAppbar(),
+          ),
         ),
-      ],
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Column(
+                children: [
+                  // const CustomAppbar(),
+                  GamesSlideshow(
+                    games: slideShowGames
+                  ),
+            
+                  GameHorizontalListView(
+                    games: upcomingGames,
+                    title: 'Popular',
+                    subTitle: 'See all',
+                    loadNextPageSize: () {
+                      ref.read(upcomingProvider.notifier).loadNextPageSize();
+                    },
+                  ),
+            
+                  GameHorizontalListView(
+                    games: upcomingGames,
+                    title: 'Top rated',
+                    subTitle: 'See all',
+                    loadNextPageSize: () {
+                      ref.read(upcomingProvider.notifier).loadNextPageSize();
+                    },
+                  ),
+            
+                  GameHorizontalListView(
+                    games: upcomingGames,
+                    title: 'Most commented',
+                    subTitle: 'See all',
+                    loadNextPageSize: () {
+                      ref.read(upcomingProvider.notifier).loadNextPageSize();
+                    },
+                  ),
+                ],
+              );
+            },
+
+            childCount: 1
+          )  
+        ),
+
+      ]
     );
   }
 }

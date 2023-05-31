@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-
 import '../../../domain/entities/game/game.dart';
 
 class GamesSlideshow extends StatelessWidget {
@@ -14,29 +13,52 @@ class GamesSlideshow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final size = MediaQuery.of(context).size;
     final colors = Theme.of(context).colorScheme;
-    return SizedBox(
-      height: size.height * 0.25,
-      width: double.infinity,
-      child: Swiper(
-        viewportFraction: 0.8,
-        scale: 0.9,
-        pagination: SwiperPagination(
-          margin: const EdgeInsets.only(top: 0),
-          builder: DotSwiperPaginationBuilder(
-            activeColor: colors.primary,
-            color: colors.secondary
-          )
-        ),
-        autoplay: true,
-        itemCount: games.length,
-        itemBuilder: (context, index) {
 
-          final game = games[index];
-          return _Slide(game: game,);
-        }, 
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:[
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
+          child: SizedBox(
+            height: size.height * 0.04 ,            
+            child: Text(
+              'Upcoming',
+              style: TextStyle(
+                fontSize: size.height / 35,
+                fontFamily: 'roboto_medium',
+              ),
+            )
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.01 , 
+        ),
+        SizedBox(
+          height: size.height * 0.25,
+          width: double.infinity,
+          child: Swiper(
+            viewportFraction: 0.8,
+            scale: 0.9,
+            pagination: SwiperPagination(
+              margin: const EdgeInsets.only(top: 0),
+              builder: DotSwiperPaginationBuilder(
+                activeColor: colors.primary,
+                color: colors.secondary
+              )
+            ),
+            autoplay: true,
+            itemCount: games.length,
+            itemBuilder: (context, index) {
+      
+              final game = games[index];
+              return _Slide(game: game,);
+            }, 
+          ),
+        ),
+      ] 
     );
   }
 }
@@ -52,7 +74,7 @@ class _Slide extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final decoration = BoxDecoration(
       borderRadius: BorderRadius.circular(8),
-      color: Colors.black12
+      color: Colors.black26
     );
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
@@ -64,24 +86,19 @@ class _Slide extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-              game.backgroundImage,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
+                height: size.height * 1,
+                game.backgroundImage,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
                     return const DecoratedBox(
                       decoration: BoxDecoration(color: Colors.black12) 
                     );
                   }
-                
                   return FadeIn(child: child);
                 },
               )
             ),
-          ),
-          Container(
-            width: size.width * 0.775,
-            height: double.infinity,
-            decoration: decoration
           ),
           Positioned(
             top: 0,

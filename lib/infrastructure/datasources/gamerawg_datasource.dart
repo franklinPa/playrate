@@ -23,8 +23,8 @@ class GamerawgDatasource extends GamesDataSource{
     //hacer un getnow datetime :)
 
     final response = await dio.get('',queryParameters: {
-      'dates': '2023-01-01,2024-05-01',
-      'page_size': '10',
+      'dates': '2021-01-01,2023-05-01',
+      'page_size': pageSize,
       'ordering': '-relevance'
     });
 
@@ -35,7 +35,7 @@ class GamerawgDatasource extends GamesDataSource{
     .map(
       (gameRawg) => GameMapper.gameRawgToEntity(gameRawg)
     ).toList();
-
+    
     return games;
   }
 

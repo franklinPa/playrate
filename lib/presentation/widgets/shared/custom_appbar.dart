@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/theme/font_theme.dart';
+
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    TextTheme textTheme = CustomTextTheme(context, Colors.black,).textTheme;
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -14,20 +17,18 @@ class CustomAppbar extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: const Icon(Icons.menu), 
+                icon: const Icon(Icons.menu),
                 onPressed: () {
-      
+
                 },
               ),
               Text(
                 'Home',
-                
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: size.height * 0.03,
-                ),
+                style: textTheme.titleLarge
               ),
               const Spacer(),
               IconButton(

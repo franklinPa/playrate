@@ -6,11 +6,11 @@ import 'games_providers.dart';
 
 final gamesSlideshowProvider = Provider<List<Game>>((ref){
 
-  final upcoming = ref.watch(upcomingProvider);
+  final upcomingGames = ref.watch(upcomingProvider);
 
-  if(upcoming.isEmpty) return [];
+  if(upcomingGames.isEmpty) return [];
 
-  return upcoming.sublist(0,6);
+  return upcomingGames.sublist(0,6);
 
   
 });
