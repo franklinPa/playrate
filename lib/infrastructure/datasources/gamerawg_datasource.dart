@@ -16,19 +16,10 @@ class GamerawgDatasource extends GamesDataSource{
       }
     )
   );
-  
-  @override
-  Future<List<Game>> getUpcoming({int pageSize = 10}) async {
 
-    //hacer un getnow datetime :)
-
-    final response = await dio.get('',queryParameters: {
-      'dates': '2021-01-01,2023-05-01',
-      'page_size': pageSize,
-      'ordering': '-relevance'
-    });
-
-    final gameRawgResponse = GameRawgResponse.fromJson(response.data);
+  List<Game> _jsonToGames( Map<String,dynamic> json ) {
+    
+    final gameRawgResponse = GameRawgResponse.fromJson(json);
 
     final List<Game> games = gameRawgResponse.results
     .where((gameRawg) => gameRawg.backgroundImage != 'no-image')
@@ -37,6 +28,33 @@ class GamerawgDatasource extends GamesDataSource{
     ).toList();
     
     return games;
+  }
+  
+  @override
+  Future<List<Game>> getUpcoming({int page = 1}) async {
+
+    //hacer un getnow datetime :)
+
+    final response = await dio.get('',queryParameters: {
+      'dates': '2021-01-01,2023-05-01',
+      'page': page,
+      'ordering': '-relevance'
+    });
+    
+    return _jsonToGames(response.data);
+  }
+  
+  @override
+  Future<List<Game>> getBestRated({int page = 1}) async {
+
+    final response = await dio.get('',queryParameters: {
+      'dates': '2023-01-01,2024-01-01',
+      'page': page,
+      'ordering': '-rating'
+    });
+
+    return _jsonToGames(response.data);
+
   }
 
 

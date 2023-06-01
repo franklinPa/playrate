@@ -32,13 +32,19 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   void initState() {
     super.initState();
-    ref.read(upcomingProvider.notifier).loadNextPageSize();
+    ref.read(upcomingProvider.notifier).loadNextPage();
+    ref.read(bestRatedGamesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    final upcomingGames = ref.watch(upcomingProvider);
+    final initialLoading = ref.watch(initialLoadingProvider);
+
+    if (initialLoading) return const FullScreenLoader();
+
     final slideShowGames = ref.watch(gamesSlideshowProvider);
+    final upcomingGames = ref.watch(upcomingProvider);
+    final bestRatedGames = ref.watch(bestRatedGamesProvider);
 
     return CustomScrollView(
       slivers: [
@@ -59,21 +65,21 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     games: slideShowGames
                   ),
             
-                  GameHorizontalListView(
-                    games: upcomingGames,
-                    title: 'Popular',
-                    subTitle: 'See all',
-                    loadNextPageSize: () {
-                      ref.read(upcomingProvider.notifier).loadNextPageSize();
-                    },
-                  ),
+                  // GameHorizontalListView(
+                  //   games: upcomingGames,
+                  //   title: 'Popular',
+                  //   subTitle: '',
+                  //   loadNextPageSize: () {
+                  //     ref.read(upcomingProvider.notifier).loadNextPageSize();
+                  //   },
+                  // ),
             
                   GameHorizontalListView(
-                    games: upcomingGames,
+                    games: bestRatedGames,
                     title: 'Top rated',
                     subTitle: 'See all',
-                    loadNextPageSize: () {
-                      ref.read(upcomingProvider.notifier).loadNextPageSize();
+                    loadNextPage: () {
+                      ref.read(bestRatedGamesProvider.notifier).loadNextPage();
                     },
                   ),
             
@@ -81,8 +87,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     games: upcomingGames,
                     title: 'Most commented',
                     subTitle: 'See all',
-                    loadNextPageSize: () {
-                      ref.read(upcomingProvider.notifier).loadNextPageSize();
+                    loadNextPage: () {
+                      ref.read(upcomingProvider.notifier).loadNextPage();
                     },
                   ),
                 ],

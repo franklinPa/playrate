@@ -11,13 +11,13 @@ class GameHorizontalListView extends StatefulWidget {
   final String? title;
   final String? subTitle;
   
-  final VoidCallback? loadNextPageSize;
+  final VoidCallback? loadNextPage;
 
   const GameHorizontalListView({
     required this.games, 
     this.title, 
     this.subTitle,
-    this.loadNextPageSize,
+    this.loadNextPage,
     super.key, 
   });
 
@@ -35,11 +35,11 @@ class _GameHorizontalListViewState extends State<GameHorizontalListView> {
 
     scrollController.addListener(() { 
 
-      if ( widget.loadNextPageSize == null ) return;
+      if ( widget.loadNextPage == null ) return;
 
       if ( (scrollController.position.pixels + 100 ) >= scrollController.position.maxScrollExtent ) {
         
-        widget.loadNextPageSize!();
+        widget.loadNextPage!();
       }
 
     });
@@ -71,8 +71,10 @@ class _GameHorizontalListViewState extends State<GameHorizontalListView> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                return _Slide(
-                  game: widget.games[index]
+                return FadeIn(
+                  child: _Slide(
+                    game: widget.games[index]
+                  ),
                 );
               },
             )
@@ -227,8 +229,8 @@ class _Title extends StatelessWidget {
               onPressed: () {
               
               }, 
-              child: const Text(
-                'See all',
+              child:  Text(
+                subTitle!,
                 
               )
           )

@@ -11,8 +11,13 @@ class GameRepositoryImpl extends GamesRepository {
   GameRepositoryImpl(this.dataSource);
 
   @override
-  Future<List<Game>> getUpcoming({int pageSize = 10}) {
-    return dataSource.getUpcoming(pageSize: pageSize);
+  Future<List<Game>> getUpcoming({int page = 1}) {
+    return dataSource.getUpcoming(page: page);
+  }
+  
+  @override
+  Future<List<Game>> getBestRated({int page = 1}) {
+    return dataSource.getBestRated(page: page);
   }
   
 }

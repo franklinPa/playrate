@@ -14,11 +14,16 @@ final upcomingProvider = StateNotifierProvider<GamesNotifier, List<Game>>((ref) 
   return GamesNotifier(fetchMoreGames: fetchMoreGames);
 });
 
-typedef GameCallback = Future<List<Game>> Function({int pageSize});
+final bestRatedGamesProvider = StateNotifierProvider<GamesNotifier, List<Game>>((ref) {
+  final fetchMoreGames = ref.watch( gameRepositoryProvider ).getBestRated;
+  return GamesNotifier(fetchMoreGames: fetchMoreGames);
+});
+
+typedef GameCallback = Future<List<Game>> Function({int page});
 
 class GamesNotifier extends StateNotifier<List<Game>>{
 
-  int currentPageSize = 0;
+  int currentPage = 0;
   bool isLoading = false;
   GameCallback fetchMoreGames;
 
@@ -26,17 +31,19 @@ class GamesNotifier extends StateNotifier<List<Game>>{
     required this.fetchMoreGames
   }):super([]);
 
-  Future<void> loadNextPageSize() async {
+  Future<void> loadNextPage() async {
 
     if ( isLoading ) return;
 
     isLoading = true;
-    currentPageSize += 10;
+    currentPage++;
 
-    final List<Game> games = await fetchMoreGames(pageSize: currentPageSize);
+    final List<Game> games = await fetchMoreGames(page: currentPage);
 
     state = [...state, ...games];
+    
     await Future.delayed(const Duration(milliseconds: 300));
+
     isLoading = false;
 
   }
